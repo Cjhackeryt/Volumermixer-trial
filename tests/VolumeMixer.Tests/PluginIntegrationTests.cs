@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Text.Json;
 using MacroDeck.Plugin.Hosting.Integrations.HostApis;
 using MacroDeck.Plugin.Protocol.Capabilities.VirtualProfiles;
@@ -9,6 +10,8 @@ using MacroDeck.Sdk.Profiles;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 using VolumeMixer.Audio;
 using VolumeMixer.Mixer;
 using VolumeMixer.Variables;
@@ -59,13 +62,26 @@ internal sealed class FakeCatalogNotifier : IPluginCatalogNotifier
 	}
 }
 
+internal sealed class TestLogSink : ILogEventSink
+{
+	private readonly ConcurrentQueue<LogEvent> _events = new();
+
+	public IReadOnlyCollection<LogEvent> Events => _events.ToArray();
+
+	public void Emit(LogEvent logEvent) => _events.Enqueue(logEvent);
+}
+
 internal sealed class MixerTestContext : IAsyncDisposable
 {
 	public MixerTestContext(params AudioApplication[] applications)
 	{
 		Audio = new FakeAudioSessionController();
 		Audio.SetApplications(applications);
-		Logger = new LoggerConfiguration().CreateLogger();
+		LogSink = new TestLogSink();
+		Logger = new LoggerConfiguration()
+			.MinimumLevel.Verbose()
+			.WriteTo.Sink(LogSink)
+			.CreateLogger();
 		Mixer = new VolumeMixerService(Audio, Logger);
 		Variables = new VolumeMixerVariableProvider(Mixer);
 		Catalogs = new FakeCatalogNotifier();
@@ -75,6 +91,8 @@ internal sealed class MixerTestContext : IAsyncDisposable
 	public FakeAudioSessionController Audio { get; }
 
 	public ILogger Logger { get; }
+
+	public TestLogSink LogSink { get; }
 
 	public VolumeMixerService Mixer { get; }
 
@@ -207,6 +225,30 @@ public sealed class PluginIntegrationTests
 			new WidgetInteraction("press"));
 
 		Assert.That(context.Audio.GetApplications().Single().VolumePercent, Is.EqualTo(0));
+	}
+
+	[Test]
+	public async Task Empty_slot_volume_press_is_debug_not_warning()
+	{
+		await using var context = new MixerTestContext();
+		await context.Integration.InitializeAsync(new FakeIntegrationContext());
+
+		await context.Integration.HandleWidgetInteractionAsync(
+			string.Empty,
+			"mixer",
+			"up-0",
+			new WidgetInteraction("press"));
+
+		Assert.That(context.LogSink.Events.Any(logEvent =>
+			logEvent.Level == LogEventLevel.Debug &&
+			logEvent.MessageTemplate.Text.StartsWith(
+				"[VolumeMixer] Ignored volume press for an empty or inactive column",
+				StringComparison.Ordinal)), Is.True);
+		Assert.That(context.LogSink.Events.Any(logEvent =>
+			logEvent.Level == LogEventLevel.Warning &&
+			logEvent.MessageTemplate.Text.StartsWith(
+				"[VolumeMixer] Volume change failed",
+				StringComparison.Ordinal)), Is.False);
 	}
 
 	[Test]

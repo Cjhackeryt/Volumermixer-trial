@@ -145,8 +145,17 @@ public sealed class PluginIntegration : IPluginIntegration, IProfileProvider, IV
 			if (!_mixer.TryAdjustSlotVolume(page, column, direction, out var application, out var volume, out var error) ||
 				application is null)
 			{
-				_logger.Warning("[VolumeMixer] Volume change failed for column {Column} on page {Page}: {Reason}",
-					column, page + 1, error);
+				if (application is null)
+				{
+					_logger.Debug("[VolumeMixer] Ignored volume press for an empty or inactive column {Column} on page {Page}: {Reason}",
+						column, page + 1, error);
+				}
+				else
+				{
+					_logger.Warning("[VolumeMixer] Volume change failed for column {Column} on page {Page}: {Reason}",
+						column, page + 1, error);
+				}
+
 				return Task.CompletedTask;
 			}
 

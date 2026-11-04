@@ -3,7 +3,7 @@
   "manifestVersion": 1,
   "id": "com.cjhackeryt.volumemixer",
   "name": "Volume Mixer",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A Windows per-application volume mixer for Macro Deck.",
   "icon": "Assets/icon.svg",
   "entrypoints": {

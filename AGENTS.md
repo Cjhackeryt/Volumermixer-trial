@@ -40,6 +40,9 @@ The host's virtual-profile interaction callback can pass an empty profile id and
 short button presses. Route by the plugin-owned folder/widget ids and accept `press`; retain
 `onShortPress` only for clients that send that legacy trigger string.
 
+Volume presses on empty or inactive mixer slots are intentional no-ops and should be logged at Debug,
+not Warning. Keep warnings for failed volume changes when an application was assigned to the slot.
+
 Virtual `ActionButton` payloads use the host's ordinary widget-data schema: keep `label` as a plain
 string and `imageUrl` at the root. Protocol tests verify that descriptors and data survive the wire;
 they do not verify that the host can create a live widget UI session from a virtual profile.

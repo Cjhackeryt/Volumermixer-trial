@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Actions.VolumeUp.Name" xml:space="preserve">
+    <value>Increase application volume</value>
+  </data>
+  <data name="Actions.VolumeUp.Description" xml:space="preserve">
+    <value>Increase the volume of a detected application with an active audio session.</value>
+  </data>
+  <data name="Actions.VolumeDown.Name" xml:space="preserve">
+    <value>Decrease application volume</value>
+  </data>
+  <data name="Actions.VolumeDown.Description" xml:space="preserve">
+    <value>Decrease the volume of a detected application with an active audio session.</value>
+  </data>
+  <data name="Actions.Application.Label" xml:space="preserve">
+    <value>Application</value>
+  </data>
+  <data name="Actions.Application.Description" xml:space="preserve">
+    <value>An application with an active audio session.</value>
+  </data>
+  <data name="Actions.Application.Option" xml:space="preserve">
+    <value>{name} ({volume}%)</value>
+    <comment>[volume:int]</comment>
+  </data>
+  <data name="Actions.Application.MutedOption" xml:space="preserve">
+    <value>{name} ({volume}%, muted)</value>
+    <comment>[volume:int]</comment>
+  </data>
+  <data name="Actions.Application.NoActiveApplications" xml:space="preserve">
+    <value>No active audio applications found. Start audio in an app, then refresh this list.</value>
+  </data>
+  <data name="Actions.Errors.ApplicationRequired" xml:space="preserve">
+    <value>Select a detected application.</value>
+  </data>
+  <data name="Actions.Errors.NoApplication" xml:space="preserve">
+    <value>This application no longer has an active audio session. Start audio in it and select it again.</value>
+  </data>
+  <data name="Actions.Errors.Unexpected" xml:space="preserve">
+    <value>The application volume could not be changed.</value>
+  </data>
+  <data name="Variables.ReadOnly.Message" xml:space="preserve">
+    <value>Volume Mixer variables are read-only.</value>
+  </data>
+  <data name="Variables.SlotApp.Display" xml:space="preserve">
+    <value>Slot {slot} application</value>
+  </data>
+  <data name="Variables.SlotApp.Description" xml:space="preserve">
+    <value>Application name and volume currently assigned to this mixer column.</value>
+  </data>
+  <data name="Variables.SlotVolume.Display" xml:space="preserve">
+    <value>Slot {slot} volume</value>
+  </data>
+  <data name="Variables.SlotVolume.Description" xml:space="preserve">
+    <value>Current volume percentage for the application assigned to this mixer column.</value>
+  </data>
+  <data name="Variables.SlotActive.Display" xml:space="preserve">
+    <value>Slot {slot} active</value>
+  </data>
+  <data name="Variables.SlotActive.Description" xml:space="preserve">
+    <value>Whether an active audio application is assigned to this mixer column.</value>
+  </data>
+  <data name="Variables.SlotMuted.Display" xml:space="preserve">
+    <value>Slot {slot} muted</value>
+  </data>
+  <data name="Variables.SlotMuted.Description" xml:space="preserve">
+    <value>Whether the application assigned to this mixer column is muted.</value>
+  </data>
+  <data name="Variables.Page.Display" xml:space="preserve">
+    <value>Mixer page</value>
+  </data>
+  <data name="Variables.Page.Description" xml:space="preserve">
+    <value>Page currently selected by the latest mixer interaction, starting at 1.</value>
+  </data>
+  <data name="Variables.PageCount.Display" xml:space="preserve">
+    <value>Mixer page count</value>
+  </data>
+  <data name="Variables.PageCount.Description" xml:space="preserve">
+    <value>Number of pages required for detected audio applications.</value>
+  </data>
+  <data name="Variables.Total.Display" xml:space="preserve">
+    <value>Detected applications</value>
+  </data>
+  <data name="Variables.Total.Description" xml:space="preserve">
+    <value>Number of applications with an active Windows audio session.</value>
+  </data>
+</root>

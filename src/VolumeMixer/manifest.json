@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.macro-deck.app/plugin-manifest-v1.schema.json",
+  "manifestVersion": 1,
+  "id": "com.cjhackeryt.volumemixer",
+  "name": "Volume Mixer",
+  "version": "0.1.5",
+  "description": "A Windows per-application volume mixer for Macro Deck.",
+  "icon": "Assets/icon.svg",
+  "entrypoints": {
+    "win-x64": { "executable": "runtimes/win-x64/VolumeMixer.dll", "runtime": { "kind": "FrameworkDependent", "dotnetVersion": "10.0" } }
+  },
+  "publisher": {
+    "name": "Cjhackeryt"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/Cjhackeryt/Volumermixer-trial",
+  "ai": {
+    "interaction": false,
+    "generatedContent": false,
+    "generatedAssets": true,
+    "services": []
+  },
+  "compatibility": {
+    "macroDeck": ">=3.0.0-0"
+  }
+}
